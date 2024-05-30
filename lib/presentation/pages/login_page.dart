@@ -51,7 +51,8 @@ class LoginPage extends StatelessWidget {
                       child: TextField(
                         controller: emailController,
                         decoration: const InputDecoration(
-                          labelText: 'Email',
+                          prefixIcon: Icon(Icons.email),
+                          labelText: 'Email',                          
                           border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(8.0)),
@@ -67,6 +68,7 @@ class LoginPage extends StatelessWidget {
                       child: TextField(
                         controller: passwordController,
                         decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
                           labelText: 'Password',
                           border: OutlineInputBorder(
                             borderRadius:

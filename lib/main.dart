@@ -11,7 +11,6 @@ import 'presentation/blocs/service_bloc.dart';
 import 'data/repositories/service_repository_impl.dart';
 import 'domain/usecases/add_service.dart';
 import 'domain/usecases/get_services.dart';
-import 'domain/usecases/search_strategies/service_search_strategy.dart';
 import 'domain/usecases/search_strategies/name_search_strategy.dart';
 import 'domain/usecases/search_strategies/description_search_strategy.dart';
 import 'domain/usecases/search_strategies/category_search_strategy.dart';
