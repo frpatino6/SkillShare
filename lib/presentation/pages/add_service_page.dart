@@ -41,7 +41,7 @@ class AddServicePage extends StatelessWidget {
                       TextField(
                         controller: nameController,
                         decoration: InputDecoration(
-                          labelText: 'Nombre',
+                          labelText: 'Servicio',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

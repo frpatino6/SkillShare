@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:skill_share/domain/usecases/search_strategies/phone_search_strategy.dart';
 import 'firebase_options.dart';
 import 'presentation/pages/login_page.dart';
 import 'presentation/pages/signup_page.dart';
@@ -33,6 +34,7 @@ Future<void> main() async {
     DescriptionSearchStrategy(),
     CategorySearchStrategy(),
     ContactNameSearchStrategy(),
+    PhoneSearchStrategy()
   ];
 
   final searchManager = ServiceSearchManager(searchStrategies);
