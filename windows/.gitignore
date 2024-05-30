@@ -15,3 +15,93 @@ x86/
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+
+# IntelliJ related
+.idea/
+*.iml
+
+# VS Code related
+.vscode/
+.settings/
+
+# MacOS related
+.DS_Store
+
+# Windows related
+Thumbs.db
+
+# Linux related
+*~
+
+# Generated files
+*.log
+*.tmp
+*.swp
+*.lock
+*.bak
+*.pid
+*.seed
+*.pid.lock
+*.sublime-workspace
+
+# Obfuscation symbol map
+app.*.symbols
+
+# Obfuscation symbol map
+app.*.map.json
+
+# Android related
+android/.gradle/
+android/.idea/
+android/local.properties
+android/app/build/
+android/**/GeneratedPluginRegistrant.java
+
+# iOS related
+ios/.generated/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Podfile.lock
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png
+ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png
+
+# Flutter/Dart/Package specific
+.generated/
+.packages
+.dart_tool/
+
+# Compiled Java class files
+*.class
+
+# Compiled Python files
+*.pyc
+
+# Backup files
+*.bak
+
+# Logs
+*.log
+
