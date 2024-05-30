@@ -1,0 +1,142 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/service_bloc.dart';
+import 'add_service_page.dart';
+
+class ServiceListPage extends StatelessWidget {
+  const ServiceListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Buscar servicios'),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Buscar servicios',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        prefixIcon: const Icon(Icons.search),
+                      ),
+                      onChanged: (value) {
+                        BlocProvider.of<ServiceBloc>(context).add(SearchServicesEvent(value));
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  ElevatedButton.icon(
+                    onPressed: () async {
+                      final result = await Navigator.pushNamed(context, '/add');
+                      if (result == true) {
+                        // Refresca la lista de servicios
+                        BlocProvider.of<ServiceBloc>(context).add(GetServicesEvent());
+                      }
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text('Agregar servicio'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: BlocBuilder<ServiceBloc, ServiceState>(
+                  builder: (context, state) {
+                    if (state is ServiceLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is ServiceLoaded) {
+                      return ListView.builder(
+                        itemCount: state.services.length,
+                        itemBuilder: (context, index) {
+                          final service = state.services[index];
+                          return Card(
+                            elevation: 4,
+                            margin: const EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${index + 1}',
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Icon(
+                                        Icons.accessibility_rounded,
+                                        size: 40,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              service.name,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(service.description),
+                                            const SizedBox(height: 8),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Divider(),
+                                  Text(
+                                    'Contacto: ${service.contactName}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text('Email: ${service.email}'),
+                                  Text('Celular: ${service.phone}'),
+                                  Text('Dirección: ${service.address}'),
+                                  const SizedBox(height: 8),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else if (state is ServiceError) {
+                      return Center(child: Text(state.message));
+                    }
+                    return Container();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
