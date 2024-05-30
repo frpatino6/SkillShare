@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
+  @override
+  _SignUpPageState createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
-
-  SignUpPage({super.key});
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,16 +69,26 @@ class SignUpPage extends StatelessWidget {
                       constraints: const BoxConstraints(maxWidth: 300),
                       child: TextField(
                         controller: passwordController,
-                        decoration: const InputDecoration(
+                        obscureText: _obscurePassword,
+                        decoration: InputDecoration(
                           labelText: 'Password',
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
                           ),
-                          prefixIcon: Icon(Icons.lock),
-                          contentPadding: EdgeInsets.symmetric(
+                          prefixIcon: const Icon(Icons.lock),
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscurePassword = !_obscurePassword;
+                              });
+                            },
+                          ),
                         ),
-                        obscureText: true,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -81,16 +96,26 @@ class SignUpPage extends StatelessWidget {
                       constraints: const BoxConstraints(maxWidth: 300),
                       child: TextField(
                         controller: confirmPasswordController,
-                        decoration: const InputDecoration(
+                        obscureText: _obscureConfirmPassword,
+                        decoration: InputDecoration(
                           labelText: 'Confirmar Password',
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8.0)),
                           ),
-                          prefixIcon: Icon(Icons.lock),
-                          contentPadding: EdgeInsets.symmetric(
+                          prefixIcon: const Icon(Icons.lock),
+                          contentPadding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
+                          ),
                         ),
-                        obscureText: true,
                       ),
                     ),
                     const SizedBox(height: 24),
