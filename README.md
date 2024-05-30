@@ -1,3 +1,3 @@
 # skill_share
 
-A new Flutter project.
+Aplicación para agregar y consultar servicios profesionales o no profesionales 
