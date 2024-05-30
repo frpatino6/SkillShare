@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/service_bloc.dart';
@@ -10,6 +11,21 @@ class ServiceListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Buscar servicios'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              BlocProvider.of<ServiceBloc>(context).add(GetServicesEvent());
+            },
+          ),IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.pushReplacementNamed(context, '/');
+            },
+          ),
+          
+        ],
       ),
       body: Center(
         child: Padding(

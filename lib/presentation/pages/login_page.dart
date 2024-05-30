@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   LoginPage({super.key});
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Web sign-in with Google
+    GoogleAuthProvider authProvider = GoogleAuthProvider();
+    return await FirebaseAuth.instance.signInWithPopup(authProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +59,9 @@ class LoginPage extends StatelessWidget {
                         controller: emailController,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.email),
-                          labelText: 'Email',                          
+                          labelText: 'Email',
                           border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
@@ -71,8 +77,7 @@ class LoginPage extends StatelessWidget {
                           prefixIcon: Icon(Icons.lock),
                           labelText: 'Password',
                           border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
+                            borderRadius: BorderRadius.all(Radius.circular(8.0)),
                           ),
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
@@ -107,6 +112,30 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         child: const Text('Login'),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 300),
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          try {
+                            await signInWithGoogle();
+                            Navigator.pushReplacementNamed(context, '/service_list');
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Google login failed')),
+                            );
+                          }
+                        },
+                        icon: const Icon(Icons.login),
+                        label: const Text('Login with Google'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 48),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
                       ),
                     ),
                   ],
